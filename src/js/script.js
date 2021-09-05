@@ -206,7 +206,7 @@
       
       thisProduct.amountWidgetElem.addEventListener('update', function(){
         thisProduct.processOrder();
-        });
+      });
     }
 
   }
@@ -242,8 +242,8 @@
       if(thisWidget.value !== newValue && !isNaN(newValue) && value >= settings.amountWidget.defaultMin && value <= settings.amountWidget.defaultMax) {
         thisWidget.value = newValue;
       }
-        thisWidget.input.value = thisWidget.value;
-        thisWidget.annnounce();
+      thisWidget.input.value = thisWidget.value;
+      thisWidget.annnounce();
     }
 
     initActions(){
