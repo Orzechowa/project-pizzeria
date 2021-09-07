@@ -259,7 +259,7 @@
         amount: thisProduct.amountWidget.value,
         priceSingle: thisProduct.priceSingle,
         price: thisProduct.priceSingle * thisProduct.amountWidget.value,
-        params: thisProduct.prepareCartProductParams,
+        params: thisProduct.prepareCartProductParams(),
       };
       return productSummary;
     }
@@ -372,6 +372,7 @@
 
       thisCart.getElements(element);
       thisCart.initActions();
+      thisCart.add(menuProduct);
 
       console.log('new Cart', thisCart);
 
