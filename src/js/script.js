@@ -96,7 +96,6 @@
       thisProduct.initAmountWidget();
       thisProduct.processOrder();
       
-      console.log('new Product:', thisProduct);
     }
 
     renderInMenu(){
@@ -153,8 +152,6 @@
     initOrderForm(){
       const thisProduct = this;
 
-      console.log(this.initOrderForm);
-
       thisProduct.form.addEventListener('submit', function(event){
         event.preventDefault();
         thisProduct.processOrder();
@@ -176,10 +173,7 @@
     processOrder(){
       const thisProduct = this;
 
-      console.log(this.processOrder);
-
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('formData', formData);
 
       // set price to default price
       let price = thisProduct.data.price;
@@ -188,13 +182,10 @@
       for(let paramId in thisProduct.data.params) {
         // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
         const param = thisProduct.data.params[paramId];
-        console.log(paramId, param);
-
         // for every option in this category
         for(let optionId in param.options) {
           // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
           const option = param.options[optionId];
-          console.log(optionId, option);
           const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
           // check if there is param with a name of paramId in formData and if it includes optionId
           if(optionSelected) {
@@ -268,17 +259,13 @@
      
       const thisProduct = this;
 
-      console.log(this.prepareCartProductParams);
-
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('formData', formData);
       const params = {};
 
       // for every category (param)...
       for(let paramId in thisProduct.data.params) {
         // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
         const param = thisProduct.data.params[paramId];
-        console.log(paramId, param);
         
         params[paramId] = {
           label: param.label,
@@ -288,7 +275,6 @@
         for(let optionId in param.options) {
           // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
           const option = param.options[optionId];
-          console.log(optionId, option);
           const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
           // check if there is param with a name of paramId in formData and if it includes optionId
           if(optionSelected) { 
@@ -309,8 +295,6 @@
       thisWidget.setValue(settings.amountWidget.defaultValue);
       thisWidget.initActions();
 
-      console.log('AmountWidget:', thisWidget);
-      console.log('constructor arguments:', element);
     }
   
     getElements(element){
@@ -372,9 +356,6 @@
 
       thisCart.getElements(element);
       thisCart.initActions();
-
-      console.log('new Cart', thisCart);
-
     }
     
     getElements(element){
@@ -386,6 +367,10 @@
       
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
       thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
+      thisCart.dom.deliveryFee = thisCart.dom.wrapper.querySelector(select.cart.deliveryFee);
+      thisCart.dom.subtotalPrice = thisCart.dom.wrapper.querySelector(select.cart.subtotalPrice);
+      thisCart.dom.totalPrice = thisCart.dom.wrapper.querySelector(select.cart.totalPrice);
+      thisCart.dom.totalNumber = thisCart.dom.wrapper.querySelector(select.cart.totalNumber);
     }
 
     initActions(){
@@ -400,8 +385,6 @@
     add(menuProduct){
       const thisCart = this;
 
-      console.log('adding product', menuProduct);
-
       const generatedHTML = templates.cartProduct(menuProduct);
 
       const generatedDom = utils.createDOMFromHTML(generatedHTML);
@@ -409,8 +392,30 @@
       thisCart.dom.productList.appendChild(generatedDom);
 
       thisCart.products.push(new CartProduct(menuProduct, generatedDom));
-      console.log('thisCart.products', thisCart.products);
 
+      thisCart.update();
+    }
+    update(){
+      const thisCart = this;
+
+      const deliveryFee = settings.cart.defaultDeliveryFee;
+      let totalNumber = 0;
+      let subtotalPrice = 0;
+
+      for(let product of thisCart.products){
+        totalNumber = product.amount;
+        subtotalPrice = totalNumber * product.priceSingle;
+      }
+
+      if(subtotalPrice == 0){
+        thisCart.totalPrice = subtotalPrice;
+      }else{
+        thisCart.totalPrice = subtotalPrice + deliveryFee;
+      }
+
+      thisCart.dom.deliveryFee.innerHTML = deliveryFee;
+      thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
+      thisCart.dom.totalNumber.innerHTML = totalNumber;
     }
   }
 
@@ -427,10 +432,6 @@
       thisCartProduct.priceSingle = menuProduct.priceSingle;
       thisCartProduct.price = menuProduct.price;
       thisCartProduct.params = menuProduct.params;
-      
-    
-
-      console.log(thisCartProduct);
     }
 
     getElements(element){
@@ -439,10 +440,10 @@
       thisCartProduct.dom = {};
       thisCartProduct.dom.wrapper = element;
 
-      thisCartProduct.dom.amountWidget = select.cartProduct.amountWidget;
-      thisCartProduct.dom.price = select.cartProduct.price;
-      thisCartProduct.dom.edit = select.cartProduct.edit;
-      thisCartProduct.dom.remove = select.cartProduct.remove;
+      thisCartProduct.dom.amountWidget = element.querySelector(select.cartProduct.amountWidget);
+      thisCartProduct.dom.price = element.querySelector(select.cartProduct.price);
+      thisCartProduct.dom.edit = element.querySelector(select.cartProduct.edit);
+      thisCartProduct.dom.remove = element.querySelector(select.cartProduct.remove);
     }
 
 
@@ -451,8 +452,11 @@
 
       thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidget);
       
-      thisCartProduct.dom.amountWidgett.addEventListener('update', function(){
+      thisCartProduct.dom.amountWidget.addEventListener('update', function(){
         thisCartProduct.amount = thisCartProduct.amountWidget.value;
+
+        thisCartProduct.price =thisCartProduct.amount *thisCartProduct.priceSingle;
+        thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
       });
     }
   }
@@ -460,8 +464,6 @@
   const app = {
     initMenu: function(){
       const thisApp = this;
-
-      console.log('thisApp.data:', thisApp.data);
 
       for(let productData in thisApp.data.products){
         new Product(productData, thisApp.data.products[productData]);
