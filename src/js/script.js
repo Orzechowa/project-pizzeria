@@ -371,7 +371,7 @@
       thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
       thisCart.dom.deliveryFee = thisCart.dom.wrapper.querySelector(select.cart.deliveryFee);
       thisCart.dom.subtotalPrice = thisCart.dom.wrapper.querySelector(select.cart.subtotalPrice);
-      thisCart.dom.totalPrice = thisCart.dom.wrapper.querySelector(select.cart.totalPrice);
+      thisCart.dom.totalPrice = thisCart.dom.wrapper.querySelectorAll(select.cart.totalPrice);
       thisCart.dom.totalNumber = thisCart.dom.wrapper.querySelector(select.cart.totalNumber);
     }
 
@@ -383,6 +383,9 @@
       });
       thisCart.dom.productList.addEventListener('updated', function(){
         thisCart.update();
+      });
+      thisCart.dom.productList.addEventListener('remove', function(event){
+        thisCart.remove(event.detail.cartProduct);
       });
     }
     add(menuProduct){
@@ -406,19 +409,37 @@
       thisCart.subtotalPrice = 0;
 
       for(let product of thisCart.products){
-        thisCart.totalNumber = product.amount;
-        thisCart.subtotalPrice = thisCart.totalNumber * product.priceSingle;
+        thisCart.totalNumber += product.amount;
+        thisCart.subtotalPrice += product.amount * product.priceSingle;
       }
 
-      if(thisCart.subtotalPrice == 0){
-        thisCart.totalPrice = thisCart.subtotalPrice;
+      if(thisCart.totalNumber == 0){
+        thisCart.totalPrice = 0;
+        thisCart.deliveryFee = 0;
       }else{
-        thisCart.totalPrice = thisCart.subtotalPrice + deliveryFee;
+        thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
       }
 
       thisCart.dom.deliveryFee.innerHTML = thisCart.deliveryFee;
       thisCart.dom.subtotalPrice.innerHTML = thisCart.subtotalPrice;
       thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber;
+      for(const elem of thisCart.dom.totalPrice) {
+        elem.innerHTML = thisCart.totalPrice;
+      }
+    }
+    remove(removeProduct){
+      const thisCart = this;
+
+      const index = thisCart.products.indexOf(removeProduct);
+
+      thisCart.products.splice(index, 1);
+      
+      console.log(index);
+
+      removeProduct.dom.wrapper.remove();
+
+      thisCart.update();
+  
     }
   }
 
