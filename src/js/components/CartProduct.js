@@ -37,7 +37,7 @@ class CartProduct{
     thisCartProduct.dom.amountWidget.addEventListener('update', function(){
       thisCartProduct.amount = thisCartProduct.amountWidget.value;
 
-      thisCartProduct.price =thisCartProduct.amount *thisCartProduct.priceSingle;
+      thisCartProduct.price =thisCartProduct.amount * thisCartProduct.priceSingle;
       thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
     });
   }
