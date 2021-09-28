@@ -49,7 +49,7 @@ const app = {
       page.classList.toggle(classNames.pages.active, page.id ==pageId);
     }
     /* add class "activate" to matching links, remove from non-matching */
-    for(let link of thisApp.navlinks){
+    for(let link of thisApp.navLinks){
       link.classList.toggle(
         classNames.nav.active, 
         link.getAttribute('href') == '#' + pageId
@@ -60,6 +60,9 @@ const app = {
 
   initBooking: function(){
     const thisApp = this;
+
+    const bookingElem = document.querySelector(select.containerOf.booking);
+    thisApp.booking = new Booking(bookingElem);
 
   },
   initMenu: function(){
