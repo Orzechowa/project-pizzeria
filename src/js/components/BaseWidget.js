@@ -1,11 +1,11 @@
 class BaseWidget{
   constructor(wrapperElement, initialValue){
-      const thisWidget = this;
+    const thisWidget = this;
 
-      thisWidget.dom = {};
-      thisWidget.dom.wrapper = wrapperElement;
+    thisWidget.dom = {};
+    thisWidget.dom.wrapper = wrapperElement;
 
-      thisWidget.correctValue = initialValue;
+    thisWidget.correctValue = initialValue;
   }
   get value(){
     const thisWidget = this;
@@ -18,7 +18,7 @@ class BaseWidget{
 
     const newValue = thisWidget.parseValue(value);
 
-    if(newValue != thisWidget.correctValue && thisWidget.isValid(value) ) {
+    if(newValue != thisWidget.correctValue && thisWidget.isValid(newValue) ) {
       thisWidget.correctValue = newValue;
       thisWidget.annnounce();
     }
@@ -28,9 +28,9 @@ class BaseWidget{
   }
 
   setValue(value){
-      const thisWidget = this;
+    const thisWidget = this;
 
-      thisWidget.value = value;
+    thisWidget.value = value;
   }
   
   parseValue(value){
@@ -38,10 +38,10 @@ class BaseWidget{
   }
 
   isValid(value){
-    return !isNaN(value)
- }
+    return !isNaN(value);
+  }
 
- renderValue(){
+  renderValue(){
     const thisWidget = this;
 
     thisWidget.dom.wrapper.innerHTML = thisWidget.value;
