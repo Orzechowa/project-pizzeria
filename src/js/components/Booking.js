@@ -221,6 +221,43 @@ class Booking {
     delete thisBooking.selectedTable;
   }
 
+  sendBooking(){
+    const thisBooking = this;
+
+    const url = settings.db.url + '/' + settings.db.bookings;
+    
+    const reservation = {
+      date: thisBooking.datePicker.value,
+      hour: thisBooking.hourPicker.value,
+      table: thisBooking.selectedTable,
+      duration: parseInt(thisBooking.peopleAmount.value),
+      ppl: parseInt(thisBooking.hoursAmount.value),
+      starters: [],
+      phone: thisBooking.dom.phone.value,
+      address: thisBooking.dom.address.value,
+    };
+
+    for(let starter of thisBooking.dom.starters){
+      if(starter.checked == true){
+        reservation.starters.push(starter.value);
+      }
+    }
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(reservation),
+    };
+      
+    fetch(url, options)
+      .then(function(response){
+        return response.json();
+      }). then(function(parsedResponse){
+        console.log('parsedResponse', parsedResponse);
+      });
+  }
+
 }
 
 export default Booking;
