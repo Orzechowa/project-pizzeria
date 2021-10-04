@@ -37,16 +37,16 @@ class Booking {
     };
 
     const urls = {
-      bookings:         settings.db.url + '/' + settings.db.booking
-                           + '?' + params.bookings.join('&'),
-      eventsCurrent:   settings.db.url + '/' + settings.db.event
-                           + '?' + params.eventsCurrent.join('&'),
-      eventsRepeat:    settings.db.url + '/' + settings.db.event
-                           + '?' + params.eventsRepeat.join('&'),
+      booking:       settings.db.url + '/' + settings.db.booking
+                                     + '?' + params.booking.join('&'),
+      eventsCurrent: settings.db.url + '/' + settings.db.event
+                                     + '?' + params.eventsCurrent.join('&'),
+      eventsRepeat:  settings.db.url + '/' + settings.db.event
+                                     + '?' + params.eventsRepeat.join('&'),
     };
 
     Promise.all([
-      fetch(urls.bookings),
+      fetch(urls.booking),
       fetch(urls.eventsCurrent),
       fetch(urls.eventsRepeat),
     ])
@@ -61,7 +61,7 @@ class Booking {
         ]);
       })
       .then(function([bookings, eventsCurrent, eventsRepeat]){
-
+        
         thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);  
       });
 
@@ -182,7 +182,7 @@ class Booking {
       thisBooking.updateDOM();
     });
 
-    thisBooking.dom.form.addEventListener('submit', function(){
+    thisBooking.dom.form.addEventListener('submit', function(event){
       event.preventDefault();    
       thisBooking.sendBooking();
     });
