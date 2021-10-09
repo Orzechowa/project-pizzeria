@@ -9,6 +9,7 @@
   <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="./vendor/range-slider.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -72,6 +73,108 @@
       <div class="booking-wrapper container"></div>
     </section>
   </div>
+  <script id="template-home-widget" type="text/x x-handlebars-template">
+    <div class="home-container">
+      <div class="options">
+        <div class="order-online">
+          <a href="#order">
+            <h3>ORDER ONLINE</h3>
+          </a>
+        </div>
+        <div class="book-table">
+          <a href="#booking">
+            <h3>BOOK TABLE</h3>
+          </a>
+        </div>
+        <div class="opening-hours">
+          <h3>OPENING HOURS</h3>
+          <h4>TUE-SUN, 12PM - 12AM</h4>
+        </div>
+      </div>
+      <section class="main-carousel">
+        <article class="carousel-cell">
+          <div class="carousel-image">
+            <img src="images/assets/pizza-3.jpg"
+          </div>
+          <div class="carousel-post">
+            <h3>The BEST pizza in town</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Dorothy Apple</p>
+          </div>
+        </article>
+        <article class="carousel-cell">
+          <div class="carousel-image">
+            <img src="images/assets/pizza-3.jpg"
+          </div>
+          <div class="carousel-post">
+            <h3>Delicious</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Ben Ten</p>
+          </div>
+        </article>
+        <article class="carousel-cell">
+          <div class="carousel-image">
+            <img src="images/assets/pizza-3.jpg"
+          </div>
+          <div class="carousel-post">
+            <h3>Great pizza</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Paola Dosen</p>
+          </div>
+        </article>  
+      </section>
+      <section class="gallery">
+        <div class="box"
+          <img src="images/assets/pizza-4.jpg">
+          <ul class="overlay">
+            <li><a href="#"><i class="fas fa-heart fa-2x"></i></a></li>
+            <li><a href="#"><i class="fas fa-share-alt fa-2x"></i></a></li>
+          </ul>
+        </div>
+        <div class="box"
+          <img src="images/assets/pizza-5.jpg">
+          <ul class="overlay">
+            <li><a href="#"><i class="fas fa-heart fa-2x"></i></a></li>
+            <li><a href="#"><i class="fas fa-share-alt fa-2x"></i></a></li>
+          </ul>
+        </div>
+        <div class="box"
+          <img src="images/assets/pizza-6.jpg">
+          <ul class="overlay">
+            <li><a href="#"><i class="fas fa-heart fa-2x"></i></a></li>
+            <li><a href="#"><i class="fas fa-share-alt fa-2x"></i></a></li>
+          </ul>
+        </div>
+        <div class="box"
+          <img src="images/assets/pizza-7.jpg">
+          <ul class="overlay">
+            <li><a href="#"><i class="fas fa-heart fa-2x"></i></a></li>
+            <li><a href="#"><i class="fas fa-share-alt fa-2x"></i></a></li>
+          </ul>
+        </div>
+        <div class="box"
+          <img src="images/assets/pizza-8.jpg">
+          <ul class="overlay">
+            <li><a href="#"><i class="fas fa-heart fa-2x"></i></a></li>
+            <li><a href="#"><i class="fas fa-share-alt fa-2x"></i></a></li>
+          </ul>
+        </div>
+        <div class="box"
+          <img src="images/assets/pizza-9.jpg">
+          <ul class="overlay">
+            <li><a href="#"><i class="fas fa-heart fa-2x"></i></a></li>
+            <li><a href="#"><i class="fas fa-share-alt fa-2x"></i></a></li>
+          </ul>
+        </div>
+      </section>
+      <footer>
+        <div class="footer">
+          <i class="fab fa-instagram" fa-2x></i>
+          <a href="#">View more on Instagram</a>
+        </div>
+      </footer>
+    </div>
+  </script>
   <script id="template-cart-product" type="text/x-handlebars-template">
     <li>
       <div class="widget-amount"> <!-- widget-amount -->
@@ -247,6 +350,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="./vendor/range-slider.min.js"></script>
+  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
   <script src="js/app.js" type="module"></script>
 </body>
 </html>
