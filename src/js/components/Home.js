@@ -1,6 +1,7 @@
 import {templates, select} from '../settings.js';
+import {app} from '../app.js';
 
- class Home{
+class Home{
   constructor(){
     const thisHome = this;
 
@@ -28,7 +29,7 @@ import {templates, select} from '../settings.js';
     thisHome.element = document.querySelector('.main-carousel');
 
     thisHome.flkty = new Flickity(thisHome.element,{
-      cellAlign: "left",
+      cellAlign: 'left',
       contain: true,
       prevNextButtons: false,
       autoplay: true,
@@ -37,14 +38,14 @@ import {templates, select} from '../settings.js';
   }
 
   goToPage(){
-      const thisHome = this;
+    const thisHome = this;
 
-      thisHome.dom.order.addEventListener("click", function(){
-          app.activatePage("order");
-      });
-      thisHome.dom.booking.addEventListener("click", function(){
-          app.activatePage("booking");
-      });
+    thisHome.dom.order.addEventListener('click', function(){
+      app.activatePage('order');
+    });
+    thisHome.dom.booking.addEventListener('click', function(){
+      app.activatePage('booking');
+    });
   }
 
 }

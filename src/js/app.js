@@ -59,6 +59,14 @@ const app = {
     }
   },
 
+  initHome: function(){
+    const thisApp = this;
+
+    const homeContainer = document.querySelector(select.containerOf.home);
+    thisApp.home = new Home(homeContainer);
+
+  },
+
   initBooking: function(){
     const thisApp = this;
 
@@ -121,6 +129,7 @@ const app = {
     console.log('settings:', settings);
     console.log('templates:', templates);
     
+    thisApp.initHome();
     thisApp.initPages();
     thisApp.initData();
     thisApp.initCart();
