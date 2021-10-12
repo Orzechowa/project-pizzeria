@@ -4,7 +4,7 @@ import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
 import Home from './components/Home.js';
 
-const app = {
+export const app = {
   initPages: function(){
     const thisApp = this;
 
@@ -63,7 +63,9 @@ const app = {
     const thisApp = this;
 
     const homeContainer = document.querySelector(select.containerOf.home);
-    thisApp.home = new Home(homeContainer);
+    thisApp.home = new Home(homeContainer, (id)=>{
+      thisApp.activatePage(id)
+    });
 
   },
 

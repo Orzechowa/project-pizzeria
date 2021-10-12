@@ -1,13 +1,17 @@
 import {templates, select} from '../settings.js';
-import {app} from '../app.js';
+
 
 class Home{
-  constructor(){
+  constructor(element, activatePage){
     const thisHome = this;
 
     thisHome.render(element);
     thisHome.initWidgets();
+
+    thisHome.activatePage = activatePage;
+
     thisHome.goToPage();
+   
   }
   
   render(element){
@@ -19,34 +23,41 @@ class Home{
     thisHome.dom.wrapper = element;
     thisHome.dom.wrapper.innerHTML = generatedHTML;
     thisHome.dom.order = element.querySelector(select.home.order);
-    thisHome.dom.booking = element.querySelector(select.home.booking);
+    thisHome.dom.booking = element.querySelector(select.home.book);
 
   }
 
   initWidgets(){
     const thisHome = this;
 
-    thisHome.element = document.querySelector('.main-carousel');
+    setTimeout(() => {
+      thisHome.element = document.querySelector('.main-carousel');
+      thisHome.flkty = new Flickity(thisHome.element, {
+        prevNextButtons: false,
+        wrapAround: true,
+        autoPlay: 3000,
+        cellAlign: 'left',
+        contain: true,
+      });
+    }, 2000);
 
-    thisHome.flkty = new Flickity(thisHome.element,{
-      cellAlign: 'left',
-      contain: true,
-      prevNextButtons: false,
-      autoplay: true,
-
-    });
+    
   }
 
   goToPage(){
     const thisHome = this;
-
+    
     thisHome.dom.order.addEventListener('click', function(){
-      app.activatePage('order');
+      thisHome.activatePage('order');
     });
+   
     thisHome.dom.booking.addEventListener('click', function(){
-      app.activatePage('booking');
+      thisHome.activatePage('booking');
     });
   }
+
+ 
+
 
 }
 export default Home;
