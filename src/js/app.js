@@ -64,7 +64,7 @@ export const app = {
 
     const homeContainer = document.querySelector(select.containerOf.home);
     thisApp.home = new Home(homeContainer, (id)=>{
-      thisApp.activatePage(id)
+      thisApp.activatePage(id);
     });
 
   },
